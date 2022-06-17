@@ -20,9 +20,17 @@
 
 export default {
   name: 'App',
-}
 
-// https://opentdb.com/api.php?amount=1
+  created() {
+     this.axios
+     .get("https://opentdb.com/api.php?amount=1")
+     .then((response) => {
+        console.log(response.data)
+      })
+  }
+
+
+}
 
 </script>
 
