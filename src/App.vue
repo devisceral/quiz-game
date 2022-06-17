@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h1>
-      Mobile hardware and software company "Blackberry Limited" was founded in which country?
+    <h1 v-html="this.question">
     </h1>
 
     <input type="radio" name="options" value="False">
@@ -21,13 +20,23 @@
 export default {
   name: 'App',
 
+  data(){
+    return {
+      question: undefined,
+      incorrectAnswers: undefined,
+      correctAnswer: undefined,
+    }
+  },
+
   created() {
      this.axios
      .get("https://opentdb.com/api.php?amount=1")
      .then((response) => {
-        console.log(response.data)
+      this.question = response.data.results[0].question;
+      this.incorrectAnswers = response.data.results[0].incorrect_answers;
+      this.correctAnswer = response.data.results[0].correct_answer;
       })
-  }
+  },
 
 
 }
