@@ -1,17 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h1>
+      Mobile hardware and software company "Blackberry Limited" was founded in which country?
+    </h1>
+
+    <input type="radio" name="options" value="False">
+    <label>False</label><br>
+    
+    <input type="radio" name="options" value="True">
+    <label>True</label><br>
+    
+    <button class="send" type="button">Confirmar</button>
+    
+  </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
 }
+
+// https://opentdb.com/api.php?amount=1
+
 </script>
 
 <style lang="scss">
@@ -22,5 +34,24 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  margin: 60px auto;
+  max-width: 960px;
+
+  input[type=radio]{
+    margin: 12px 4px;
+  }
+
+  button.send {
+  margin-top: 12px;
+  height: 40px;
+  min-width: 120px;
+  padding: 0 16px;
+  color: #fff;
+  background-color: #1867c0;
+  border: 1px solid #1867c0;
+  cursor: pointer;
 }
+}
+
+
 </style>
