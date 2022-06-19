@@ -1,19 +1,28 @@
 <template>
   <div>
-    <h1 v-html="this.question">
-    </h1>
+    
+    <template v-if="this.question">
 
-    <input type="radio" name="options" value="False">
-    <label>False</label><br>
-    
-    <input type="radio" name="options" value="True">
-    <label>True</label><br>
-    
-    <button class="send" type="button">Confirmar</button>
-    
+      <h1 v-html="this.question">
+      </h1>
+
+      <template  v-for="answer in answers" :key="answer">
+        <input 
+          type="radio" 
+          name="options" 
+          :value="answer"
+          v-model="this.chosen_answer"
+          >
+  
+        <label v-html="answer"></label><br>   
+  
+      </template>
+      <button class="send" type="button">Confirmar</button>
+    </template>
+      
   </div>
-
-</template>
+  
+</template>  
 
 <script>
 
@@ -25,6 +34,15 @@ export default {
       question: undefined,
       incorrectAnswers: undefined,
       correctAnswer: undefined,
+      chosen_answer: undefined,
+    }
+  },
+
+  computed: {
+    answers() {
+      const answers = JSON.parse( JSON.stringify(this.incorrectAnswers) );
+      answers.push(this.correctAnswer);
+      return answers;
     }
   },
 
