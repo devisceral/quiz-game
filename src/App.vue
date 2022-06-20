@@ -7,7 +7,8 @@
       </h1>
 
       <template  v-for="answer in answers" :key="answer">
-        <input 
+        <input
+          :disabled="this.answerSubmitted"
           type="radio" 
           name="options" 
           :value="answer"
@@ -17,7 +18,18 @@
         <label v-html="answer"></label><br>   
   
       </template>
-      <button @click="this.submitAnswer()" class="send" type="button">Confirmar</button>
+      <button v-if="!this.answerSubmitted" @click="this.submitAnswer()" class="send" type="button">Confirmar</button>
+
+      <section v-if="this.answerSubmitted" class="result">
+        <h4 v-if="this.chosenAnswer == this.correctAnswer">
+          &#9989;  Congratulations, the answer "{{this.correctAnswer}}" is correct.
+        </h4>
+
+        <h4 v-else>
+          &#10060; I'm sorry, you picked the wrong answer. The correct is "{{this.correctAnswer}}".
+        </h4>
+        <button class="send" type="button">Next question</button>
+      </section>
     </template>
       
   </div>
@@ -35,6 +47,7 @@ export default {
       incorrectAnswers: undefined,
       correctAnswer: undefined,
       chosenAnswer: undefined,
+      answerSubmitted: false,
     }
   },
 
@@ -51,10 +64,11 @@ export default {
       if(!this.chosenAnswer) {
         alert('Pick one of the options');
       } else {
+        this.answerSubmitted = true;
         if (this.chosenAnswer == this.correctAnswer){
-          alert('corret');
+          console.log('corret');
         }else{
-          alert('incorrect');
+          console.log("I'm sorry, you picked the wrong answer. The correct is .");
         }
       }
     }
