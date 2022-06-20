@@ -11,13 +11,13 @@
           type="radio" 
           name="options" 
           :value="answer"
-          v-model="this.chosen_answer"
+          v-model="this.chosenAnswer"
           >
   
         <label v-html="answer"></label><br>   
   
       </template>
-      <button class="send" type="button">Confirmar</button>
+      <button @click="this.submitAnswer()" class="send" type="button">Confirmar</button>
     </template>
       
   </div>
@@ -34,18 +34,31 @@ export default {
       question: undefined,
       incorrectAnswers: undefined,
       correctAnswer: undefined,
-      chosen_answer: undefined,
+      chosenAnswer: undefined,
     }
   },
 
   computed: {
     answers() {
       const answers = JSON.parse( JSON.stringify(this.incorrectAnswers) );
-      answers.push(this.correctAnswer);
+      answers.splice(Math.round(Math.random() * answers.length), 0, this.correctAnswer);
       return answers;
     }
   },
 
+  methods: {
+    submitAnswer(){
+      if(!this.chosenAnswer) {
+        alert('Pick one of the options');
+      } else {
+        if (this.chosenAnswer == this.correctAnswer){
+          alert('corret');
+        }else{
+          alert('incorrect');
+        }
+      }
+    }
+  },
   created() {
      this.axios
      .get("https://opentdb.com/api.php?amount=1")
